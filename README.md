@@ -1,5 +1,5 @@
 # I-V-Curve
-I-V Curve Caracterisation of Solar cells
+## I-V Curve Caracterisation of Solar cells
 
 **10 March 2023 **
 
