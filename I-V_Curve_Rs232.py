@@ -1,5 +1,5 @@
 import serial
-import matplotlib.pyplot as plt
+from plot_utiles import plot_iv
 
 # Serial communication configuration
 ser = serial.Serial()
@@ -43,9 +43,10 @@ for voltage in voltages:
 ser.close()
 
 # Plot the measured currents in function of the sourced voltage (I-V curve)
-plt.plot(voltages, currents)
-plt.xlabel("Tension [V]")
-plt.ylabel("Courant [A]")
-plt.show()
+plot_iv(voltages,currents)
+#plt.plot(voltages, currents)
+#plt.xlabel("Tension [V]")
+#plt.ylabel("Courant [A]")
+#plt.show()
 
 #Possibility to add Isc and Voc on the plot when it's working.
