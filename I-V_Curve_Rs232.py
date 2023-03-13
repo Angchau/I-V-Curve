@@ -16,13 +16,13 @@ ser.open()
 # Keithley 2400 Configuration
 ser.write(b'*RST\n')                  # reinitialisation of the instrument
 ser.write(b':SOUR:FUNC:MODE VOLT\n')  # Sourcing tension
-ser.write(b':SOUR:VOLT:RANG 20\n')     # Tension Range set to 2V
+#ser.write(b':SOUR:VOLT:RANG 20\n')     # Tension Range set to 2V
 ser.write(b':SENS:FUNC "CURR"\n')     # Measuring current
-ser.write(b':SENS:CURR:PROT 1\n')  # Current protection set at 1.05A : Maximum for keithely 2400
-ser.write(b':SENS:CURR:RANG 0.01\n')     # Current range to 0.01 Amp
+ser.write(b':SENS:CURR:PROT 1.05\n')  # Current protection set at 1.05A : Maximum for keithely 2400
+#ser.write(b':SENS:CURR:RANG 0.01\n')     # Current range to 0.01 Amp
 
 # Number of measurement points
-voltages = [0, 1, 2, 3, 4, 5, 6, 9, 12, 15]   # voltages values
+voltages = [0, 3, 6, 9, 12, 15, 18, 21]   # voltages values
 currents = []                                                   # measured currents
 
 for voltage in voltages:
