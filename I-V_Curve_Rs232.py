@@ -1,5 +1,5 @@
 import serial
-import matplotlib.pyplot as plt
+from plot_utiles import plot_iv
 
 # Serial communication configuration
 ser = serial.Serial()
@@ -16,13 +16,13 @@ ser.open()
 # Keithley 2400 Configuration
 ser.write(b'*RST\n')                  # reinitialisation of the instrument
 ser.write(b':SOUR:FUNC:MODE VOLT\n')  # Sourcing tension
-ser.write(b':SOUR:VOLT:RANG 20\n')     # Tension Range set to 2V
+#ser.write(b':SOUR:VOLT:RANG 20\n')     # Tension Range set to 2V
 ser.write(b':SENS:FUNC "CURR"\n')     # Measuring current
-ser.write(b':SENS:CURR:PROT 1\n')  # Current protection set at 1.05A : Maximum for keithely 2400
-ser.write(b':SENS:CURR:RANG 0.01\n')     # Current range to 0.01 Amp
+ser.write(b':SENS:CURR:PROT 1.05\n')  # Current protection set at 1.05A : Maximum for keithely 2400
+#ser.write(b':SENS:CURR:RANG 0.01\n')     # Current range to 0.01 Amp
 
 # Number of measurement points
-voltages = [0, 1, 2, 3, 4, 5, 6, 9, 12, 15]   # voltages values
+voltages = [0, 1, 3, 5, 7, 9]   # voltages values
 currents = []                                                   # measured currents
 
 for voltage in voltages:
@@ -30,6 +30,8 @@ for voltage in voltages:
     ser.write(b':OUTP ON\n')                          # Instrument output open
     ser.write(b':INIT\n')                             # Start measuring
     ser.write(b':FETC?\n')                            # Retrieve the measured values
+
+
     current = ser.readline().decode('ascii').strip()  # Save answers in a string
     values = current.split(',')                       # Split the string into measured values (Voltage, Current, Etc)
     print("voltage [V]")
@@ -43,9 +45,4 @@ for voltage in voltages:
 ser.close()
 
 # Plot the measured currents in function of the sourced voltage (I-V curve)
-plt.plot(voltages, currents)
-plt.xlabel("Tension [V]")
-plt.ylabel("Courant [A]")
-plt.show()
-
-#Possibility to add Isc and Voc on the plot when it's working.
+plot_iv(voltages,currents)
