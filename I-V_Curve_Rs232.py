@@ -22,7 +22,7 @@ ser.write(b':SENS:CURR:PROT 1.05\n')  # Current protection set at 1.05A : Maximu
 #ser.write(b':SENS:CURR:RANG 0.01\n')     # Current range to 0.01 Amp
 
 # Number of measurement points
-voltages = [0, 3, 6, 9, 12, 15, 18, 21]   # voltages values
+voltages = [0, 1, 3, 5, 7, 9]   # voltages values
 currents = []                                                   # measured currents
 
 for voltage in voltages:
@@ -30,6 +30,8 @@ for voltage in voltages:
     ser.write(b':OUTP ON\n')                          # Instrument output open
     ser.write(b':INIT\n')                             # Start measuring
     ser.write(b':FETC?\n')                            # Retrieve the measured values
+
+
     current = ser.readline().decode('ascii').strip()  # Save answers in a string
     values = current.split(',')                       # Split the string into measured values (Voltage, Current, Etc)
     print("voltage [V]")
@@ -44,9 +46,3 @@ ser.close()
 
 # Plot the measured currents in function of the sourced voltage (I-V curve)
 plot_iv(voltages,currents)
-#plt.plot(voltages, currents)
-#plt.xlabel("Tension [V]")
-#plt.ylabel("Courant [A]")
-#plt.show()
-
-#Possibility to add Isc and Voc on the plot when it's working.

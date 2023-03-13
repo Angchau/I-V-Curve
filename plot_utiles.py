@@ -6,3 +6,5 @@ def plot_iv(x,y):
     plt.ylabel("Courant [A]")
     plt.show()
 
+
+
